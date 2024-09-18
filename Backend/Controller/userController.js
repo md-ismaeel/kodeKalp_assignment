@@ -18,31 +18,13 @@ export const userRegistration = async (req, res) => {
 
     try {
 
-        const isRegisteredUser = await userModel.findOne({ userName })
+        const isRegisteredUser = await userModel.findOne({ or$: [{ userName }, { email }, { mobileNumber }] })
         if (isRegisteredUser) {
             return res.status(409).json({
                 success: false,
                 message: "usr already exits please login!!"
             })
         }
-
-        const isRegisteredEmail = await userModel.findOne({ email })
-        if (isRegisteredEmail) {
-            return res.status(409).json({
-                success: false,
-                message: "usr already exits please login!!"
-            })
-        }
-
-        const isRegisteredMobileNumber = await userModel.findOne({ mobileNumber })
-        if (isRegisteredMobileNumber) {
-            return res.status(409).json({
-                success: false,
-                message: "usr already exits please login!!"
-            })
-        }
-
-
 
         const salt = await genSalt(10)
         const hashedPassword = await hash(password, salt)
