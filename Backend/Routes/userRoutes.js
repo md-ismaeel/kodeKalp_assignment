@@ -10,6 +10,6 @@ userRouter.get("/confirmEmail/:token", confirmationEmail);
 userRouter.post("/login", userLogin);
 userRouter.get("/logout", authentication, userLogOut)
 userRouter.post("/resetPassword", forgetPassword)
-userRouter.get("/resetPassword/:token", resetPassword)
+userRouter.post("/resetPassword/:token", resetPassword)
 
 export default userRouter;
