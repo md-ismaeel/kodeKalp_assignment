@@ -6,12 +6,23 @@ import cookieParser from "cookie-parser"
 
 import userRouter from "./Routes/userRoutes.js";
 
+const corsOptions = {
+    origin: [
+        "http://localhost:5173",
+        "https://kodekalp-assignment.vercel.app"
+    ],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+
 const PORT = process?.env?.PORT || 10000;
 const mongoUri = process?.env?.MONGODB_URI;
 const app = express();
 app.use(express.json());
 app.use(cookieParser())
-app.use(cors())
+app.use(cors(corsOptions))
 
 mongoose
     .connect(`${mongoUri}`)
