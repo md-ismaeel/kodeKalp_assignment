@@ -66,7 +66,7 @@ export const userRegistration = async (req, res) => {
 
         res.status(201).json({
             success: true,
-            message: "user registered successfully!!",
+            message: "user registered successfully and sended a confirmation mail!!",
             user: user?._id
         })
 
@@ -138,7 +138,8 @@ export const userLogin = async (req, res) => {
         res.status(200).json({
             success: true,
             message: "user login successfully!!",
-            token: `Bearer ${token}`
+            token: `Bearer ${token}`,
+            user: user
         })
 
 
