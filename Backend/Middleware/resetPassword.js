@@ -43,7 +43,7 @@ export default async function resetPassword(req, res) {
         await user.save()
 
         res.status(200).json({
-            success: false,
+            success: true,
             message: "password reset successfully you can login Now!"
         })
 

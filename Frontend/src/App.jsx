@@ -4,22 +4,25 @@ import Login from "./Page/Login/Login";
 import Register from "./Page/Register/Register";
 import NotFound from "./Page/NotFound/NotFound";
 import { useSelector } from "react-redux";
+import { Home } from "./Page/Home/Home";
+import ResetPassword from "./Page/ResetPassword/ResetPassword";
+import NewPassword from "./Page/ResetPassword/NewPassword";
 
 
 function App() {
-  const { isLogin } = useSelector((state) => state.userSlice);
+  const { isLogin, user } = useSelector((state) => state.userSlice);
+  console.log(isLogin);
+  console.log(user);
+
 
   const loginRoutes = createBrowserRouter([
     {
       path: "/",
-      element: <Login />,
+      element: <Home />,
       errorElement: <NotFound />,
     },
-    {
-      path: "register",
-      element: <Register />,
-      errorElement: <NotFound />,
-    },
+
+
   ]);
 
   const logoutRoutes = createBrowserRouter([
@@ -29,10 +32,19 @@ function App() {
       errorElement: <NotFound />,
     },
     {
-      path: "register",
+      path: "/register",
       element: <Register />,
       errorElement: <NotFound />,
     },
+    {
+      path: "/resetPassword",
+      element: <ResetPassword />,
+      errorElement: <NotFound />
+    }, {
+      path: "/resetPassword/:token",
+      element: <NewPassword />,
+      errorElement: <NotFound />
+    }
   ]);
 
   return (

@@ -3,7 +3,7 @@ import { hash, genSalt, compare } from "bcrypt";
 import jwt from "jsonwebtoken"
 import "dotenv/config"
 import nodemailer from "nodemailer";
-import { render_db_api } from "../Utils/utils.js";
+import { FRONTEND_DOMAIN } from "../Utils/utils.js";
 
 const secretKey = process.env.SECRET_KEY;
 const smtpEmail = process.env.SMTP_EMAIL;
@@ -55,7 +55,7 @@ export const userRegistration = async (req, res) => {
             }
         })
 
-        const confirmationLink = `${render_db_api}/api/v1/user/confirmEmail/${confirmationToken}`
+        const confirmationLink = `${FRONTEND_DOMAIN}/api/v1/user/confirmEmail/${confirmationToken}`
         const mailOptions = {
             from: smtpEmail,
             to: email,
@@ -209,7 +209,7 @@ export const forgetPassword = async (req, res) => {
                 pass: smtpPassword
             }
         })
-        const resetLink = `${render_db_api}/api/v1/user/resetPassword/${resetToken}`;
+        const resetLink = `${FRONTEND_DOMAIN}/api/v1/user/resetPassword/${resetToken}`;
         const mailOptions = {
             from: smtpEmail,
             to: email,
