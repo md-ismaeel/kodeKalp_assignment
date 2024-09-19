@@ -48,10 +48,8 @@ export const userRegistration = async (req, res) => {
     }
 }
 
-
-
 export const userLogin = async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const { userName, email, mobileNumber, password } = req.body;
 
     if ((!userName && !email && !mobileNumber) || !password) {
@@ -139,3 +137,7 @@ export const userLogOut = async (req, res) => {
     }
 
 }
+
+export const forgetPassword = async (req, res) => {
+
+} 
