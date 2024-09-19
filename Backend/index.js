@@ -14,7 +14,7 @@ app.use(cookieParser())
 app.use(cors())
 
 mongoose
-    .connect(`${mongoUri}/kodeKalpUser`)
+    .connect(`${mongoUri}`)
     .then(() => console.log("mongoDb connection stablish successfully!!"))
     .catch((err) => console.log(`Error-Occurred ${err.message}`));
 
