@@ -30,11 +30,15 @@ const userSchema = new mongoose.Schema({
         minLength: [8, "password minimum length should be 8 character!!"],
     },
     mobileNumber: {
-        type: Number,
+        type: String,
         unique: true,
         required: [true, "mobileNumber is required!!"],
         minLength: [10, "minimum length 10 required!!"],
         maxLength: [10, "minimum length 10 required!!"],
+    },
+    confirm: {
+        type: Boolean,
+        default: false
     },
     token: {
         type: String,

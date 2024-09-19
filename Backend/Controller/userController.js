@@ -2,8 +2,11 @@ import { userModel } from "../Model/userModel.js";
 import { hash, genSalt, compare } from "bcrypt";
 import jwt from "jsonwebtoken"
 import "dotenv/config"
+import nodemailer from "nodemailer"
 
 const secretKey = process.env.SECRET_KEY;
+const smtpEmail = process.env.SMTP_EMAIL;
+const smtpPassword = process.env.SMTP_PASSWORD
 
 export const userRegistration = async (req, res) => {
     // console.log(req.body);
@@ -22,7 +25,7 @@ export const userRegistration = async (req, res) => {
         if (isRegisteredUser) {
             return res.status(409).json({
                 success: false,
-                message: "usr already exits please login!!"
+                message: "user already exits please login!!"
             })
         }
 
@@ -33,6 +36,32 @@ export const userRegistration = async (req, res) => {
             ...req.body,
             password: hashedPassword
         })
+
+        // Generating conformation token 
+        const conformationTokenPayload = {
+            userId: user._id,
+            userEmail: user.email
+        }
+        const confirmationToken = jwt.sign(
+            conformationTokenPayload, secretKey, { expiresIn: "1h" }
+        )
+
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: smtpEmail,
+                pass: smtpPassword
+            }
+        })
+
+        const confirmationLink = `http://localhost:10000/api/v1/user/confirmEmail/${confirmationToken}`
+        const mailOptions = {
+            from: smtpEmail,
+            to: email,
+            subject: "Confirm Your Email",
+            text: `Please confirm your email by clicking this link: ${confirmationLink}`,
+        }
+        await transporter.sendMail(mailOptions)
 
         res.status(201).json({
             success: false,
@@ -66,6 +95,13 @@ export const userLogin = async (req, res) => {
             return res.status(404).json({
                 success: false,
                 message: "user doesn't exit, please register!!"
+            })
+        }
+
+        if (!user.confirm) {
+            return res.status(400).json({
+                success: false,
+                message: "pleas confirm your email first!!"
             })
         }
 
@@ -114,7 +150,7 @@ export const userLogin = async (req, res) => {
 }
 
 export const userLogOut = async (req, res) => {
-    console.log("req.user", req.user);
+    // console.log("req.user", req.user);
 
     try {
         await userModel.findByIdAndUpdate(req.user.userId, { token: null });

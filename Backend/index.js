@@ -4,7 +4,6 @@ import "dotenv/config";
 import cors from "cors";
 import cookieParser from "cookie-parser"
 
-
 import userRouter from "./Routes/userRoutes.js";
 
 const PORT = process?.env?.PORT || 10000;
