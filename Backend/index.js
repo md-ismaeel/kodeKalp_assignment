@@ -27,4 +27,9 @@ app.use("/*", (req, res) => {
     });
 });
 
-app.listen(PORT, () => console.log(`Server is up and running on port ${PORT}`));
+app.listen(PORT, (err) => {
+    if (err) {
+        console.log(err.message);
+    }
+    console.log(`Server is up and running on port ${PORT}`)
+})

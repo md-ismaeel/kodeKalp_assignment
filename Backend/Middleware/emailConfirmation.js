@@ -8,6 +8,14 @@ export default async function confirmationEmail(req, res) {
     const { token } = req.params;
     // console.log("token", token);
     try {
+
+        if (!token) {
+            return res.status(401).json({
+                success: false,
+                message: "unAuthorized user token is required!!"
+            })
+        }
+
         const decoded = jwt.verify(token, secretKey);
 
         const user = await userModel.findById(decoded.userId);
@@ -27,6 +35,11 @@ export default async function confirmationEmail(req, res) {
 
         user.confirm = true,
             await user.save()
+
+        res.status(200).json({
+            success: true,
+            message: "your email is verified now you can login!!"
+        })
 
     } catch (error) {
         return res.status(500).json({

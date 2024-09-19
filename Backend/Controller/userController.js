@@ -2,7 +2,8 @@ import { userModel } from "../Model/userModel.js";
 import { hash, genSalt, compare } from "bcrypt";
 import jwt from "jsonwebtoken"
 import "dotenv/config"
-import nodemailer from "nodemailer"
+import nodemailer from "nodemailer";
+import { localhost } from "../Utils/utils.js";
 
 const secretKey = process.env.SECRET_KEY;
 const smtpEmail = process.env.SMTP_EMAIL;
@@ -54,7 +55,7 @@ export const userRegistration = async (req, res) => {
             }
         })
 
-        const confirmationLink = `http://localhost:10000/api/v1/user/confirmEmail/${confirmationToken}`
+        const confirmationLink = `${localhost}/api/v1/user/confirmEmail/${confirmationToken}`
         const mailOptions = {
             from: smtpEmail,
             to: email,
@@ -64,7 +65,7 @@ export const userRegistration = async (req, res) => {
         await transporter.sendMail(mailOptions)
 
         res.status(201).json({
-            success: false,
+            success: true,
             message: "user registered successfully!!",
             user: user?._id
         })
@@ -109,7 +110,7 @@ export const userLogin = async (req, res) => {
         if (!isValidPassword) {
             return res.status(404).json({
                 success: false,
-                message: "user unAuthorized!!"
+                message: "unAuthorized user please provide valid email/password!!"
             })
         }
 
@@ -175,5 +176,50 @@ export const userLogOut = async (req, res) => {
 }
 
 export const forgetPassword = async (req, res) => {
+    console.log(req.body);
+    const { email } = req.body;
+
+    try {
+        const user = await userModel.findOne({ email });
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "user not found!!"
+            })
+        }
+
+        // Generating reset token
+        const resetPayload = {
+            userId: user._id,
+            userEmail: user.email
+        }
+        const resetToken = jwt.sign(resetPayload, secretKey, { expiresIn: "1h" })
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: smtpEmail,
+                pass: smtpPassword
+            }
+        })
+        const resetLink = `${localhost}/api/v1/user/resetPassword/${resetToken}`;
+        const mailOptions = {
+            from: smtpEmail,
+            to: email,
+            subject: "Reset Your Password",
+            text: `You requested a password reset. Click this link to reset your password: ${resetLink}`,
+        }
+
+        await transporter.sendMail(mailOptions)
+
+        res.status(200).json({
+            success: true,
+            message: "password reset link has been sent to your registered email!!"
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: `${error.message}`
+        })
+    }
 
 } 
