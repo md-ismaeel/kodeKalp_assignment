@@ -55,7 +55,7 @@ export const userRegistration = async (req, res) => {
             }
         })
 
-        const confirmationLink = `${FRONTEND_DOMAIN}/confirmEmail/${confirmationToken}`
+        const confirmationLink = `${FRONTEND_DOMAIN}/confirm-email/${confirmationToken}`
         // console.log(confirmationLink);
 
         const mailOptions = {
