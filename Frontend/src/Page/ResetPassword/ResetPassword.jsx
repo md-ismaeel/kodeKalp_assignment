@@ -47,7 +47,6 @@ export default function ResetPassword() {
                                 "Reset"
                             )}
                         </button>
-
                     </form>
                 </div>
             </section>
