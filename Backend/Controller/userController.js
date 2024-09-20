@@ -55,7 +55,9 @@ export const userRegistration = async (req, res) => {
             }
         })
 
-        const confirmationLink = `${FRONTEND_DOMAIN}/api/v1/user/confirmEmail/${confirmationToken}`
+        const confirmationLink = `${FRONTEND_DOMAIN}/confirmEmail/${confirmationToken}`
+        console.log(confirmationLink);
+
         const mailOptions = {
             from: smtpEmail,
             to: email,
@@ -209,7 +211,7 @@ export const forgetPassword = async (req, res) => {
                 pass: smtpPassword
             }
         })
-        const resetLink = `${FRONTEND_DOMAIN}/api/v1/user/resetPassword/${resetToken}`;
+        const resetLink = `${FRONTEND_DOMAIN}/resetPassword/${resetToken}`;
         const mailOptions = {
             from: smtpEmail,
             to: email,
