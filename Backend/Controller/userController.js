@@ -56,7 +56,7 @@ export const userRegistration = async (req, res) => {
         })
 
         const confirmationLink = `${FRONTEND_DOMAIN}/confirmEmail/${confirmationToken}`
-        console.log(confirmationLink);
+        // console.log(confirmationLink);
 
         const mailOptions = {
             from: smtpEmail,
@@ -179,7 +179,7 @@ export const userLogOut = async (req, res) => {
 }
 
 export const forgetPassword = async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const { email } = req.body;
 
     try {
