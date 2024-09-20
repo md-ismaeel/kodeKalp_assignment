@@ -30,8 +30,8 @@ export default function ResetPassword() {
         <>
             <section className="w-full h-auto flex justify-center items-center">
                 <div className="w-full min-h-screen flex justify-center items-center">
-                    <form onSubmit={handleSubmit} className={`w-[400px] min-h-[250px] bg-white flex flex-col justify-start items-center gap-2 border rounded-3xl`}>
-                        <p className='mb-5 mt-10'>To reset your password Enter registered email</p>
+                    <form onSubmit={handleSubmit} className={`w-[380px] min-h-[250px] bg-white flex flex-col justify-start items-center gap-3 border rounded-3xl`}>
+                        <p className='mb-5 mt-5 text-xl font-medium px-7 capitalize'>To reset password Enter your registered email!</p>
                         <input type='text' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email Address' className={`${cssClass.inputCss}`} />
                         <button
                             type="submit"

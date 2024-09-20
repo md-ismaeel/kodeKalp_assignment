@@ -67,7 +67,7 @@ export default function Register() {
     return (
         <section className="w-full h-auto flex justify-center items-center">
             <div className="w-full min-h-screen flex justify-center items-center">
-                <form onSubmit={handleSubmit} className={cssClass.formCss}>
+                <form onSubmit={handleSubmit} className={cssClass.registerFormCss}>
                     <div className={cssClass.registerAndLoginCss}>Registration Form</div>
                     <input
                         type="text"

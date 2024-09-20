@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { Home } from "./Page/Home/Home";
 import ResetPassword from "./Page/ResetPassword/ResetPassword";
 import NewPassword from "./Page/ResetPassword/NewPassword";
+import EmailConformation from "./Page/EmailConformation/EmailConformation";
 
 
 function App() {
@@ -35,6 +36,11 @@ function App() {
       path: "/register",
       element: <Register />,
       errorElement: <NotFound />,
+    },
+    {
+      path: "/confirmEmail/:token",
+      element: <EmailConformation />,
+      errorElement: <NotFound />
     },
     {
       path: "/resetPassword",

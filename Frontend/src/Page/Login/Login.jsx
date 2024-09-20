@@ -77,7 +77,7 @@ export default function Login() {
             <div className="w-full min-h-screen flex justify-center items-center">
                 <form
                     onSubmit={handleSubmit}
-                    className={`relative ${cssClass.formCss}`}
+                    className={`relative ${cssClass.loginFormCss}`}
                 >
                     <div className={cssClass.registerAndLoginCss}>Login</div>
                     <input
