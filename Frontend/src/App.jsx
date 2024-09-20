@@ -39,7 +39,7 @@ function App() {
       errorElement: <NotFound />,
     },
     {
-      path: "/confirmEmail/:token",
+      path: "/confirm-email/:token",
       element: <ConfirmEmail />,
       errorElement: <NotFound />
     },
