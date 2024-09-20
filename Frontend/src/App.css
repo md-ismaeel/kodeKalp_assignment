@@ -19,4 +19,9 @@ body {
   .acc {
     padding: 0rem 10px;
   }
+
+  .kal {
+    width: 90% !important;
+    padding: 1rem 1.1rem;
+  }
 }

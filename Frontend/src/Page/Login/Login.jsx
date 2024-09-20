@@ -46,14 +46,14 @@ export default function Login() {
                 identifier = { userName: userName };
             }
             const reqData = { ...identifier, password };
-            console.log(reqData);
+            // console.log(reqData);
 
             const response = await axios.post(
                 `${BACKEND_API_ENDPOINTS}/login`,
                 reqData,
                 requestOptions
             );
-            console.log(response.data);
+            // console.log(response.data);
 
             if (response?.data?.success) {
                 dispatch(setIsLogin(true));
@@ -64,7 +64,7 @@ export default function Login() {
             }
         } catch (error) {
             toast.error(error.response?.data?.message);
-            console.log(
+            console.error(
                 error.response?.data?.message || "Unexpected Error Occurred!!"
             );
         } finally {
