@@ -9,7 +9,8 @@ import userRouter from "./Routes/userRoutes.js";
 const corsOptions = {
     origin: [
         "http://localhost:5173",
-        "https://kodekalp-assignment.vercel.app"
+        "https://kodekalp-assignment.vercel.app",
+        "https://kodekalp-assignment.netlify.app"
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
