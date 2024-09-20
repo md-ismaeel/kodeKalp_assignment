@@ -7,6 +7,16 @@
   font-family: "poppins", sans-serif;
 }
 
-body{
+body {
   background-color: aliceblue;
+}
+
+@media screen and (max-width:575.98px) {
+  .input-form {
+    width: 90% !important;
+  }
+
+  .acc {
+    padding: 0rem 10px;
+  }
 }

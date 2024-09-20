@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 import { Home } from "./Page/Home/Home";
 import ResetPassword from "./Page/ResetPassword/ResetPassword";
 import NewPassword from "./Page/ResetPassword/NewPassword";
-import EmailConformation from "./Page/EmailConformation/ConfirmEmail";
 import ConfirmEmail from "./Page/EmailConformation/ConfirmEmail";
 
 
