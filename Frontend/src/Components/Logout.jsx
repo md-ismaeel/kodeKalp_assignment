@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "material-react-toastify";
 import axios from "axios";
 import { BACKEND_END_POINT, requestOptions } from "../../Utils/utils";
-import { setIsUserLogin } from "../Redux/Slice/userSlice";
-import { PulseLoader } from "react-spinners";
+import { setIsLogin } from "../Redux/Slice/userSlice";
 import Cookies from "js-cookie"
+import { Loader } from "./Loader";
 
 const Logout = () => {
 
-    const { isUserLogin } = useSelector((state) => state.PokemonSlice);
+    const { isLogin } = useSelector((state) => state.PokemonSlice);
     const [logout, setLogout] = useState(false)
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -20,7 +20,7 @@ const Logout = () => {
         try {
             const response = await axios.get(`${BACKEND_END_POINT}/logout`, requestOptions);
             if (response?.data?.success) {
-                dispatch(setIsUserLogin(false));
+                dispatch(setIsLogin(false));
                 toast.success(response?.data?.message);
                 Cookies.remove('token');
                 navigate("/")
@@ -32,15 +32,6 @@ const Logout = () => {
             setLogout(false);
         }
     }
-
-    // useEffect(() => {
-    //     const token = Cookies.get('token');
-    //     if (token) {
-    //         dispatch(setIsLogin(true));
-    //     } else {
-    //         dispatch(setIsLogin(false));
-    //     }
-    // }, [dispatch]);
 
     return (
         <>
@@ -82,13 +73,7 @@ const Logout = () => {
                     </svg>
                 </span>
                 <span className="relative w-full h-full text-white text-left transition-colors duration-200 ease-in-out group-hover:text-white">
-                    {logout ? (
-                        <span className="absolute top-2 right-0 flex items-center justify-center">
-                            <PulseLoader size={5} color={"#ffffff"} />
-                        </span>
-                    ) : (
-                        "Logout"
-                    )}
+                    {logout ? <div><Loader /><span>Loading...</span></div> : "Logout"}
                 </span>
             </button>
         </>
