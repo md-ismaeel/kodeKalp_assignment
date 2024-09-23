@@ -45,8 +45,6 @@ export default function Register() {
     setLoading(true);
 
     try {
-      // console.log(userData);
-
       const response = await axios.post(
         `${BACKEND_API_ENDPOINTS}/register`,
         userData,
