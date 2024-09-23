@@ -6,9 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { cssClass } from "../../Components/cssModule";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "../../Components/Loader";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 export default function Register() {
   const [loading, setLoading] = useState(false);
+  const [isEye, setIsEye] = useState(false)
   const navigate = useNavigate();
 
   const [userData, setUserData] = useState({
@@ -101,14 +104,17 @@ export default function Register() {
             placeholder="Email Address"
             className={cssClass.inputCss}
           />
-          <input
-            type="text"
-            value={userData.password}
-            onChange={handleChange}
-            name="password"
-            placeholder="Password"
-            className={cssClass.inputCss}
-          />
+          <div className="relative">
+            <input
+              type={isEye ? "text" : "password"}
+              value={userData.password}
+              onChange={handleChange}
+              name="password"
+              placeholder="Password"
+              className={cssClass.inputCss}
+            />
+            <span onClick={() => setIsEye((prev) => !prev)} className="absolute top-4 right-5 text-xl text-slate-600 cursor-pointer">{isEye ? <FaEye /> : <FaEyeSlash />}</span>
+          </div>
           <input
             type="text"
             value={userData.mobileNumber}

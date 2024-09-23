@@ -7,11 +7,14 @@ import { toast } from "material-react-toastify";
 import { BACKEND_API_ENDPOINTS, requestOptions } from "../../Utils/utils";
 import { setIsLogin, setUser } from "../../Redux/Slice/userSlice";
 import { Loader } from "../../Components/Loader";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 export default function Login() {
     const { user, isLogin } = useSelector((state) => state.userSlice);
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
+    const [isEye, setIsEye] = useState(false)
     const navigate = useNavigate();
 
     const [userData, setUserData] = useState({
@@ -88,14 +91,17 @@ export default function Login() {
                         placeholder="UserName & Email & Mobile Number"
                         className={`${cssClass.inputCss}`}
                     />
-                    <input
-                        type="text"
-                        value={userData.password}
-                        onChange={handleChange}
-                        name="password"
-                        placeholder="Password"
-                        className={cssClass.inputCss}
-                    />
+                    <div className="relative">
+                        <input
+                            type={isEye ? "text" : "password"}
+                            value={userData.password}
+                            onChange={handleChange}
+                            name="password"
+                            placeholder="Password"
+                            className={cssClass.inputCss}
+                        />
+                        <span onClick={() => setIsEye((prev) => !prev)} className="absolute top-4 right-5 text-xl text-slate-600 cursor-pointer">{isEye ? <FaEye /> : <FaEyeSlash />}</span>
+                    </div>
                     <button
                         type="submit"
                         className={`relative ${cssClass.buttonCss} ${loading ? "cursor-not-allowed" : ""
